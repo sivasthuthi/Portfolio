@@ -335,26 +335,38 @@ contactForm.addEventListener("submit", (event) => {
     */
 
 
-    const mailtoLink =
-        "mailto:sivasthuthi2008@gmail.com" +
-        "?subject=" +
-        encodeURIComponent(subject) +
-        "&body=" +
-        encodeURIComponent(
-            "Name: " + name +
-            "\nEmail: " + email +
-            "\n\nMessage:\n" + message
-        );
+   const form = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
 
+form.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-    window.location.href = mailtoLink;
+    const formData = new FormData(form);
 
+    try {
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
 
-    formMessage.textContent =
-        "Opening your email application...";
+        if (response.ok) {
+            formMessage.textContent =
+                "Message sent successfully! Thank you for contacting me.";
 
+            form.reset();
+        } else {
+            formMessage.textContent =
+                "Sorry, something went wrong. Please try again.";
+        }
+
+    } catch (error) {
+        formMessage.textContent =
+            "Unable to send the message. Please try again.";
+    }
 });
-
 
 /* ================= CURRENT YEAR ================= */
 
