@@ -282,69 +282,22 @@ backToTop.addEventListener("click", () => {
 
 /* ================= CONTACT FORM ================= */
 
-const contactForm =
-    document.getElementById("contactForm");
+ /* ================= CONTACT FORM ================= */
 
-const formMessage =
-    document.getElementById("formMessage");
-
-
-contactForm.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    const name =
-        document.getElementById("name").value.trim();
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const subject =
-        document.getElementById("subject").value.trim();
-
-    const message =
-        document.getElementById("message").value.trim();
-
-
-    if (
-        !name ||
-        !email ||
-        !subject ||
-        !message
-    ) {
-
-        formMessage.textContent =
-            "Please fill in all fields.";
-
-        return;
-
-    }
-
-
-    /*
-        Front-end demo only.
-
-        For a real portfolio contact form,
-        connect this form to:
-
-        - Formspree
-        - EmailJS
-        - PHP + PHPMailer
-        - Vercel API
-        - Node.js backend
-    */
-
-
-   const form = document.getElementById("contactForm");
+const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
-form.addEventListener("submit", async function (event) {
+contactForm.addEventListener("submit", async function (event) {
+
     event.preventDefault();
 
-    const formData = new FormData(form);
+    const formData = new FormData(contactForm);
+
+    formMessage.textContent = "Sending message...";
 
     try {
-        const response = await fetch(form.action, {
+
+        const response = await fetch(contactForm.action, {
             method: "POST",
             body: formData,
             headers: {
@@ -353,19 +306,26 @@ form.addEventListener("submit", async function (event) {
         });
 
         if (response.ok) {
+
             formMessage.textContent =
                 "Message sent successfully! Thank you for contacting me.";
 
-            form.reset();
+            contactForm.reset();
+
         } else {
+
             formMessage.textContent =
                 "Sorry, something went wrong. Please try again.";
+
         }
 
     } catch (error) {
+
         formMessage.textContent =
             "Unable to send the message. Please try again.";
+
     }
+
 });
 
 /* ================= CURRENT YEAR ================= */
